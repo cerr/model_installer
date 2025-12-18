@@ -47,7 +47,7 @@ function define_models {
           11)
                 MODEL_NAME=MR_HN_Nodule_SMIT
                 ;;
-		  12)
+		      12)
                 MODEL_NAME=CT_Lung_OAR_SMITplus
                 ;;
            *)
@@ -118,7 +118,7 @@ while getopts ":hm:d:ip:n:u:r:" opt; do
       ;;
     p)
         POPTION=${OPTARG}
-        if [[ "${POPTION}" != "P" && "${POPTION}" != "C" && "${POPTION}" != "N" ]]; then POPTION="N"; echo "Selected -p Python option invalid, defaulting to N"; fi
+        if [[ "${POPTION}" != "P" && "${POPTION}" != "C" && "${POPTION}" != "U" ]]; then POPTION="N"; echo "Selected -p Python option invalid, defaulting to N"; fi
       ;;
 
     i)
@@ -216,7 +216,7 @@ then
 
         if [ "${USR_ANS}" != "" ]
         then
-                if [[ "${USR_ANS}" != "P" &&  ${USR_ANS} != "C" && "${USR_ANS}" != "N" ]]; then POPTION=N; else POPTION=${USR_ANS}; fi
+                if [[ "${USR_ANS}" != "P" &&  ${USR_ANS} != "C" && "${USR_ANS}" != "U" ]]; then POPTION=N; else POPTION=${USR_ANS}; fi
         fi
 
         echo "Python setup option selected is ${POPTION}"
@@ -291,4 +291,13 @@ then
         conda deactivate
         conda env create -f ${MODEL_FOLDER}/environment.yml
         MODEL_NAME=`cat ${MODEL_FOLDER}/environment.yml | head -1 | awk '{ print $2 }'`        #conda activate ${MODEL_NAME}
+elif [ "${POPTION}" == "U" ]
+then
+        echo "uv environment install option specified"
+        cd ${MODEL_FOLDER}
+        uv venv
+        for REQ in `ls requirements/*.txt`
+        do
+          uv pip install -p .venv -r ${REQ}
+        done
 fi
