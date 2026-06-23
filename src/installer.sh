@@ -294,10 +294,26 @@ then
 elif [ "${POPTION}" == "U" ]
 then
         echo "uv environment install option specified"
-        cd ${MODEL_FOLDER}
-        uv venv
+	cd ${MODEL_FOLDER}
+	CONFIG_FILE="uv_config.txt"
+	PYTHON_VERSION=""
+	EXTRA_UV_FLAGS=""
+	
+	if [ -f "$CONFIG_FILE" ]; then
+		# Extract values
+		PYTHON_VERSION=$(grep -E "^python_version=" "$CONFIG_FILE" | cut -d'=' -f2- | tr -d '\r' | xargs)
+		EXTRA_UV_FLAGS=$(grep -E "^uv_flags=" "$CONFIG_FILE" | cut -d'=' -f2- | tr -d '\r')
+	fi
+	
+	if [ -n "$PYTHON_VERSION" ]; then
+		echo "Creating uv virtual environment with specified Python version: $PYTHON_VERSION"
+		uv venv .venv --python "$PYTHON_VERSION"
+	else
+		uv venv .venv
+	fi
+        
         for REQ in `ls requirements/*.txt`
         do
-          uv pip install -p .venv -r ${REQ}
+          uv pip install -p .venv $EXTRA_UV_FLAGS -r ${REQ}
         done
 fi
