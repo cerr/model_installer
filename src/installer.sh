@@ -8,7 +8,7 @@ function print_stratis_logo {
         echo " "
 }
 
-N_MODELS=12
+N_MODELS=13
 
 function define_models {
         N=$1
@@ -47,8 +47,11 @@ function define_models {
           11)
                 MODEL_NAME=MR_HN_Nodule_SMIT
                 ;;
-		      12)
+	  12)
                 MODEL_NAME=CT_Lung_OAR_SMITplus
+                ;;
+	  13)
+                MODEL_NAME=MR_BrainMets_SMITplus
                 ;;
            *)
                 echo Error
@@ -74,7 +77,7 @@ function help_text {
         echo "          -i : Flag to run installer in interactive mode (no argument)"
         echo "          -m : [1-${N_MODELS}] Integer number to select model to install. For list of available options, see below. "
         echo "          -d : Directory to install model with network weights "
-        echo "          -p : [P/C/N] Setup and install Python environment P: setup Conda env from python requirements.txt; C: Conda pack download; N: No install. " #User must already have Anaconda installed and initiated. "
+        echo "          -p : [P/C/N/U] Setup and install Python environment P: setup Conda env from python requirements.txt; C: Conda pack download; U: Setup uv env from Python requirements.txt; N: No install. " #User must already have Anaconda installed and initiated. "
         echo "          -n : [1-${N_MODELS}] Print the model name of number argument "		
 	    echo "          -r : Provide URL to tar archive for model weights (optional) "
 		echo "          -u : User credentials for private GitHub repo, format is user:token "
