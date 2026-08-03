@@ -24,7 +24,7 @@ Usage Information:
 		-i : Flag to run installer in interactive mode (no argument)
 		-m : [1-9] Integer number to select model to install. For list of available options, see below. 
 		-d : Directory to install model with network weights 
-		-p : [P/C/N] Setup and install Python environment P: setup Conda env from python requirements.txt; C: Conda pack download; N: No install. 
+		-p : [P/C/N/U] Setup and install Python environment P: setup Conda env from python requirements.txt; C: Conda pack download; U: Setup uv env from Python requirements.txt; N: No install. 
 		-n : [1-9] Print the model name of number argument
 	    -r : Provide URL to tar archive for model weights (optional)
 		-u : User credentials for private GitHub repo, format is "user:token"
